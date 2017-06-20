@@ -60,7 +60,7 @@ Image.render = function() {
 };
 
 // EVENT LISTENER FOR HANDLING CLICKING OF IMAGES
-theImages.addEventListener('click', handleClickWithLimiter());
+theImages.addEventListener('click', handleClickWithLimiter);
 
 // LIMITER ON AMOUNT OF TIMES handleClick CAN BE return
 function handleClickWithLimiter(event) {
@@ -70,10 +70,10 @@ function handleClickWithLimiter(event) {
   // else
   //  run handleClick
   clickCounter += 1;
-  console.log(clickCounter);
+  console.log('Clicked ' + clickCounter);
   if (clickCounter > 25) {
   } else {
-    handleClick();
+    handleClick(event);
   }
 };
 
@@ -82,55 +82,83 @@ function handleClick(event) {
   var left = document.getElementById('left');
   var center = document.getElementById('center');
   var right = document.getElementById('right');
-  console.log(left);
-  console.log(center);
-  console.log(right);
+  // console.log(left);
+  // console.log(center);
+  // console.log(right);
 
   // If user clicks left image
   if(event.target.id === 'left') {
-    var j = 0;
-    while (j < 1) {
-      for (var k = 0; k < Image.all.length; k++) {
-        var randomLeft = randomNumber();
-        if(randomLeft === Image.all[k]) {
-          Image.all[k].clicked += 1;
-          console.log(Image.all[k].displayName + ' was clicked ' + Image.all[k].clicked + ' times.');
-          var leftFilepath = Image.all[k].filepath;
-          j++;
-        }
+    for (var k = 0; k < Image.all.length; k++) {
+      // console.log('Iteration ' + k);
+      var randomLeft1 = randomNumber() + 1;
+      var randomCenter1 = randomNumber() + 1;
+      var randomRight1 = randomNumber() + 1;
+      if(randomLeft1 === Image.all[k].id) {
+        Image.all[k].clicked += 1;
+        console.log(Image.all[k].displayName + ' was clicked ' + Image.all[k].clicked + ' times.');
+        document.getElementById('left').src = Image.all[k].filepath;
+      }
+      if(randomCenter1 === Image.all[k].id) {
+        Image.all[k].clicked += 1;
+        console.log(Image.all[k].displayName + ' was clicked ' + Image.all[k].clicked + ' times.');
+        document.getElementById('center').src = Image.all[k].filepath;
+      }
+      if(randomRight1 === Image.all[k].id) {
+        Image.all[k].clicked += 1;
+        console.log(Image.all[k].displayName + ' was clicked ' + Image.all[k].clicked + ' times.');
+        document.getElementById('right').src = Image.all[k].filepath;
       }
     }
   }
   // If user clicks center image
   if(event.target.id === 'center') {
-    var j = 0;
-    while (j < 1) {
-      for (var k = 0; k < Image.all.length; k++) {
-        var randomCenter = randomNumber();
-        if(randomCenter === Image.all[k].id && randomCenter != randomLeft) {
-          Image.all[k].clicked += 1;
-          console.log(Image.all[k].displayName + ' was clicked ' + Image.all[k].clicked + ' times.');
-          var centerFilepath = Image.all[k].filepath;
-          j++;
-        }
+    for (var i = 0; i < Image.all.length; i++) {
+      // console.log('Iteration ' + i);
+      var randomLeft2 = randomNumber() + 1;
+      var randomCenter2 = randomNumber() + 1;
+      var randomRight2 = randomNumber() + 1;
+      if(randomLeft2 === Image.all[i].id && randomLeft2 != randomLeft1 && randomLeft2 != randomCenter1 && randomLeft2 != randomRight1) {
+        Image.all[i].clicked += 1;
+        console.log(Image.all[i].displayName + ' was clicked ' + Image.all[i].clicked + ' times.');
+        document.getElementById('left').src = Image.all[i].filepath;
+      }
+      if(randomCenter2 === Image.all[i].id && randomCenter2 != randomLeft1 && randomCenter2 != randomCenter1 && randomCenter2 != randomRight1 && randomCenter2 != randomLeft2) {
+        Image.all[i].clicked += 1;
+        console.log(Image.all[i].displayName + ' was clicked ' + Image.all[i].clicked + ' times.');
+        document.getElementById('center').src = Image.all[i].filepath;
+      }
+      if(randomRight2 === Image.all[i].id && randomRight2 != randomLeft1 && randomRight2 != randomCenter1 && randomRight2 != randomRight1 && randomRight2 != randomLeft2 && randomRight2 != randomCenter2) {
+        Image.all[i].clicked += 1;
+        console.log(Image.all[i].displayName + ' was clicked ' + Image.all[i].clicked + ' times.');
+        document.getElementById('right').src = Image.all[i].filepath;
       }
     }
   }
   // If user clicks right image
   if(event.target.id === 'right') {
-    var j = 0;
-    while (j < 1) {
-      for (var k = 0; k < Image.all.length; k++) {
-        var randomRight = randomNumber();
-        if(randomRight === Image.all[k].id && randomRight != randomLeft && randomRight != randomCenter) {
-          Image.all[k].clicked += 1;
-          console.log(Image.all[k].displayName + ' was clicked ' + Image.all[k].clicked + ' times.');
-          var rightFilepath = Image.all[k].filepath;
-          j++;
-        }
+    for (var j = 0; j < Image.all.length; j++) {
+      // console.log('Iteration ' + j);
+      var randomLeft3 = randomNumber() + 1;
+      var randomCenter3 = randomNumber() + 1;
+      var randomRight3 = randomNumber() + 1;
+      if(randomLeft3 === Image.all[j].id && randomLeft3 != randomLeft1 && randomLeft3 != randomCenter1 && randomLeft3 != randomRight1 && randomLeft3 != randomLeft2 && randomLeft3 != randomCenter2 && randomLeft3 != randomRight2 && randomLeft3 != randomCenter3 && randomLeft3 != randomRight3) {
+        Image.all[j].clicked += 1;
+        console.log(Image.all[j].displayName + ' was clicked ' + Image.all[j].clicked + ' times.');
+        document.getElementById('left').src = Image.all[j].filepath;
+      }
+      if(randomCenter3 === Image.all[j].id && randomCenter3 != randomLeft1 && randomCenter3 != randomCenter1 && randomCenter3 != randomRight1 && randomCenter3 != randomLeft2 && randomCenter3 != randomCenter2 && randomCenter3 != randomRight2 && randomCenter3 != randomLeft3 && randomCenter3 != randomRight3) {
+        Image.all[j].clicked += 1;
+        console.log(Image.all[j].displayName + ' was clicked ' + Image.all[j].clicked + ' times.');
+        document.getElementById('center').src = Image.all[j].filepath;
+      }
+      if(randomRight3 === Image.all[j].id && randomRight3 != randomLeft1 && randomRight3 != randomCenter1 && randomRight3 != randomRight1 && randomRight3 != randomLeft2 && randomRight3 != randomCenter2 && randomRight3 != randomRight2 && randomRight3 != randomLeft3 && randomRight3 != randomCenter3) {
+        Image.all[j].clicked += 1;
+        console.log(Image.all[j].displayName + ' was clicked ' + Image.all[j].clicked + ' times.');
+        document.getElementById('right').src = Image.all[j].filepath;
       }
     }
   }
 };
 
 Image.render();
+console.table(theImages.all);
