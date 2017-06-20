@@ -1,53 +1,26 @@
 'use strict';
 
 // GLOBAL VARIABLES
-// For creating table
+// For creating images
 var theImages = document.getElementById('images');
-
-// EVENT LISTENER FOR HANDLING CLICKING OF IMAGES
-theImages.addEventListener('click', handleClick);
-
-var img1Clicks = 0;
-var img2Clicks = 0;
-var img3Clicks = 0;
-
-// EVENT HANDLER
-function handleClick(event) {
-
-  // if(event.target.id === 'stooges') {
-  //   alert('Click on the H2s only!');
-  // }
-
-  var img1 = document.getElementById('img1');
-  var img2 = document.getElementById('img2');
-  var img3 = document.getElementById('img3');
-
-  // for (var i = 0; i < Image.length; i++) {
-  // }
-
-  if(event.target.id === 'img1') {
-    img1Clicks += 1;
-    console.log(' has been clicked ' + img1Clicks + ' times.');
-  }
-  if(event.target.id === 'img2') {
-    img2Clicks += 1;
-    console.log(' has been clicked ' + img2Clicks + ' times.');
-  }
-  if(event.target.id === 'img3') {
-    img3Clicks += 1;
-    console.log(' has been clicked ' + img3Clicks + ' times.');
-  }
-}
+var clickCounter = 0;
 
 // CONSTRUCTOR FOR IMAGES
 function Image(displayName, filepath, id) {
   this.displayName = displayName;
   this.filepath = filepath;
   this.id = id;
+  this.shown = 0;
+  this.clicked = 0;
   Image.all.push(this);
 };
 
-// Instantiate Image objects
+// GENERATE RANDOM WHOLE NUMBER FROM 0 to 19
+function randomNumber() {
+  return Math.floor(Math.random() * (19 - 0) + 0);
+};
+
+// INSTANTIATE IMAGE OBJECTS
 Image.all = [];
 new Image('R2-D2 Small Luggage Bag', 'img/bag.jpg', 1);
 new Image('Banana-slicer', 'img/banana.jpg', 2);
@@ -70,10 +43,94 @@ new Image('Tentacle USB', 'img/usb.gif', 18);
 new Image('Self-Filling Water Can', 'img/water-can.jpg', 19);
 new Image('Narrow Opening Wine Glass', 'img/wine-glass.jpg', 20);
 
-// RENDER IMAGES
+// RENDER STARTER IMAGES
 Image.render = function() {
   // <img>        create img
-  document.getElementById('img1').src = 'img/shark.jpg';
+  var a = randomNumber();
+  document.getElementById('left').src = Image.all[a].filepath;
+  Image.all[a].shown += 1;
+  // <img>        create img
+  var b = randomNumber();
+  document.getElementById('center').src = Image.all[b].filepath;
+  Image.all[b].shown += 1;
+  // <img>        create img
+  var c = randomNumber();
+  document.getElementById('right').src = Image.all[c].filepath;
+  Image.all[c].shown += 1;
+};
+
+// EVENT LISTENER FOR HANDLING CLICKING OF IMAGES
+theImages.addEventListener('click', handleClickWithLimiter());
+
+// LIMITER ON AMOUNT OF TIMES handleClick CAN BE return
+function handleClickWithLimiter(event) {
+  // on click, add 1 to click counter
+  // if click counter > 25
+  //  do nothing
+  // else
+  //  run handleClick
+  clickCounter += 1;
+  console.log(clickCounter);
+  if (clickCounter > 25) {
+  } else {
+    handleClick();
+  }
+};
+
+// EVENT HANDLER
+function handleClick(event) {
+  var left = document.getElementById('left');
+  var center = document.getElementById('center');
+  var right = document.getElementById('right');
+  console.log(left);
+  console.log(center);
+  console.log(right);
+
+  // If user clicks left image
+  if(event.target.id === 'left') {
+    var j = 0;
+    while (j < 1) {
+      for (var k = 0; k < Image.all.length; k++) {
+        var randomLeft = randomNumber();
+        if(randomLeft === Image.all[k]) {
+          Image.all[k].clicked += 1;
+          console.log(Image.all[k].displayName + ' was clicked ' + Image.all[k].clicked + ' times.');
+          var leftFilepath = Image.all[k].filepath;
+          j++;
+        }
+      }
+    }
+  }
+  // If user clicks center image
+  if(event.target.id === 'center') {
+    var j = 0;
+    while (j < 1) {
+      for (var k = 0; k < Image.all.length; k++) {
+        var randomCenter = randomNumber();
+        if(randomCenter === Image.all[k].id && randomCenter != randomLeft) {
+          Image.all[k].clicked += 1;
+          console.log(Image.all[k].displayName + ' was clicked ' + Image.all[k].clicked + ' times.');
+          var centerFilepath = Image.all[k].filepath;
+          j++;
+        }
+      }
+    }
+  }
+  // If user clicks right image
+  if(event.target.id === 'right') {
+    var j = 0;
+    while (j < 1) {
+      for (var k = 0; k < Image.all.length; k++) {
+        var randomRight = randomNumber();
+        if(randomRight === Image.all[k].id && randomRight != randomLeft && randomRight != randomCenter) {
+          Image.all[k].clicked += 1;
+          console.log(Image.all[k].displayName + ' was clicked ' + Image.all[k].clicked + ' times.');
+          var rightFilepath = Image.all[k].filepath;
+          j++;
+        }
+      }
+    }
+  }
 };
 
 Image.render();
