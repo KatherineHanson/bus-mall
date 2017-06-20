@@ -98,12 +98,12 @@ function handleClick(event) {
         console.log(Image.all[k].displayName + ' was clicked ' + Image.all[k].clicked + ' times.');
         document.getElementById('left').src = Image.all[k].filepath;
       }
-      if(randomCenter1 === Image.all[k].id) {
+      if(randomCenter1 === Image.all[k].id && randomCenter1 != randomLeft1) {
         Image.all[k].clicked += 1;
         console.log(Image.all[k].displayName + ' was clicked ' + Image.all[k].clicked + ' times.');
         document.getElementById('center').src = Image.all[k].filepath;
       }
-      if(randomRight1 === Image.all[k].id) {
+      if(randomRight1 === Image.all[k].id && randomRight1 != randomLeft1 && randomRight1 != randomCenter1) {
         Image.all[k].clicked += 1;
         console.log(Image.all[k].displayName + ' was clicked ' + Image.all[k].clicked + ' times.');
         document.getElementById('right').src = Image.all[k].filepath;
