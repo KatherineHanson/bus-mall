@@ -9,13 +9,14 @@ Image.imagesLast = [];
 Image.imagesCurrent = [];
 
 // CONSTRUCTOR FOR IMAGES
-function Image(name, format, id) {
+function Image(name, format, id, identifier) {
   this.name = name;
   this.format = format;
   this.filepath = 'img/' + name + format;
   this.id = id;
   this.shown = 0;
   this.clicked = 0;
+  this.identifier = identifier;
   Image.allImages.push(this);
 };
 
@@ -76,6 +77,7 @@ function handleClickWithLimiter(event) {
   Image.clickCounter += 1;
   console.log('Clicked ' + Image.clickCounter);
   if (Image.clickCounter > 25) {
+    Image.theImages.innerHTML = '';
   } else {
     handleClick(event);
   }
@@ -129,91 +131,126 @@ function searchImagesCurrent(index) {
   }
 }
 
-  // loop over each element in Image.allImages array. For each element,
-  //  loop over Image.imagesLast array. For each element,
-  //    if Image.allImages array element's name does not match Image.imagesLast array's displayName
-  //    and
-
-//   var left = document.getElementById('left');
-//   var center = document.getElementById('center');
-//   var right = document.getElementById('right');
-//   // console.log(left);
-//   // console.log(center);
-//   // console.log(right);
-//
-//   // If user clicks left image
-//   if(event.target.id === 'left') {
-//     for (var k = 0; k < Image.allImages.length; k++) {
-//       // console.log('Iteration ' + k);
-//       var randomLeft1 = randomNumber() + 1;
-//       var randomCenter1 = randomNumber() + 1;
-//       var randomRight1 = randomNumber() + 1;
-//       if(randomLeft1 === Image.allImages[k].id) {
-//         Image.allImages[k].clicked += 1;
-//         console.log(Image.allImages[k].displayName + ' was clicked ' + Image.allImages[k].clicked + ' times.');
-//         document.getElementById('left').src = Image.allImages[k].filepath;
-//       }
-//       if(randomCenter1 === Image.allImages[k].id && randomCenter1 != randomLeft1) {
-//         Image.allImages[k].clicked += 1;
-//         console.log(Image.allImages[k].displayName + ' was clicked ' + Image.allImages[k].clicked + ' times.');
-//         document.getElementById('center').src = Image.allImages[k].filepath;
-//       }
-//       if(randomRight1 === Image.allImages[k].id && randomRight1 != randomLeft1 && randomRight1 != randomCenter1) {
-//         Image.allImages[k].clicked += 1;
-//         console.log(Image.allImages[k].displayName + ' was clicked ' + Image.allImages[k].clicked + ' times.');
-//         document.getElementById('right').src = Image.allImages[k].filepath;
-//       }
-//     }
-//   }
-//   // If user clicks center image
-//   if(event.target.id === 'center') {
-//     for (var i = 0; i < Image.allImages.length; i++) {
-//       // console.log('Iteration ' + i);
-//       var randomLeft2 = randomNumber() + 1;
-//       var randomCenter2 = randomNumber() + 1;
-//       var randomRight2 = randomNumber() + 1;
-//       if(randomLeft2 === Image.allImages[i].id && randomLeft2 != randomLeft1 && randomLeft2 != randomCenter1 && randomLeft2 != randomRight1) {
-//         Image.allImages[i].clicked += 1;
-//         console.log(Image.allImages[i].displayName + ' was clicked ' + Image.allImages[i].clicked + ' times.');
-//         document.getElementById('left').src = Image.allImages[i].filepath;
-//       }
-//       if(randomCenter2 === Image.allImages[i].id && randomCenter2 != randomLeft1 && randomCenter2 != randomCenter1 && randomCenter2 != randomRight1 && randomCenter2 != randomLeft2) {
-//         Image.allImages[i].clicked += 1;
-//         console.log(Image.allImages[i].displayName + ' was clicked ' + Image.allImages[i].clicked + ' times.');
-//         document.getElementById('center').src = Image.allImages[i].filepath;
-//       }
-//       if(randomRight2 === Image.allImages[i].id && randomRight2 != randomLeft1 && randomRight2 != randomCenter1 && randomRight2 != randomRight1 && randomRight2 != randomLeft2 && randomRight2 != randomCenter2) {
-//         Image.allImages[i].clicked += 1;
-//         console.log(Image.allImages[i].displayName + ' was clicked ' + Image.allImages[i].clicked + ' times.');
-//         document.getElementById('right').src = Image.allImages[i].filepath;
-//       }
-//     }
-//   }
-//   // If user clicks right image
-//   if(event.target.id === 'right') {
-//     for (var j = 0; j < Image.allImages.length; j++) {
-//       // console.log('Iteration ' + j);
-//       var randomLeft3 = randomNumber() + 1;
-//       var randomCenter3 = randomNumber() + 1;
-//       var randomRight3 = randomNumber() + 1;
-//       if(randomLeft3 === Image.allImages[j].id && randomLeft3 != randomLeft1 && randomLeft3 != randomCenter1 && randomLeft3 != randomRight1 && randomLeft3 != randomLeft2 && randomLeft3 != randomCenter2 && randomLeft3 != randomRight2 && randomLeft3 != randomCenter3 && randomLeft3 != randomRight3) {
-//         Image.allImages[j].clicked += 1;
-//         console.log(Image.allImages[j].displayName + ' was clicked ' + Image.allImages[j].clicked + ' times.');
-//         document.getElementById('left').src = Image.allImages[j].filepath;
-//       }
-//       if(randomCenter3 === Image.allImages[j].id && randomCenter3 != randomLeft1 && randomCenter3 != randomCenter1 && randomCenter3 != randomRight1 && randomCenter3 != randomLeft2 && randomCenter3 != randomCenter2 && randomCenter3 != randomRight2 && randomCenter3 != randomLeft3 && randomCenter3 != randomRight3) {
-//         Image.allImages[j].clicked += 1;
-//         console.log(Image.allImages[j].displayName + ' was clicked ' + Image.allImages[j].clicked + ' times.');
-//         document.getElementById('center').src = Image.allImages[j].filepath;
-//       }
-//       if(randomRight3 === Image.allImages[j].id && randomRight3 != randomLeft1 && randomRight3 != randomCenter1 && randomRight3 != randomRight1 && randomRight3 != randomLeft2 && randomRight3 != randomCenter2 && randomRight3 != randomRight2 && randomRight3 != randomLeft3 && randomRight3 != randomCenter3) {
-//         Image.allImages[j].clicked += 1;
-//         console.log(Image.allImages[j].displayName + ' was clicked ' + Image.allImages[j].clicked + ' times.');
-//         document.getElementById('right').src = Image.allImages[j].filepath;
-//       }
-//     }
-//   }
-
-
 Image.render();
+
 // console.table(Image.theImages.all);
+
+// ++++++++++++++++++++++++++++++++++++++++++++
+// CHART - Variable and function declarations
+// ++++++++++++++++++++++++++++++++++++++++++++
+
+// Arrays to hold data for the chart
+var names = [];
+var clicks = [];
+var imageChart;
+var chartDrawn = false;
+
+function updateChartArrays() {
+  for (var i = 0; i < Image.allImages.length; i++) {
+    names[i] = Image.allImages[i].name;
+    clicks[i] = Image.allImages[i].clicked;
+  }
+}
+
+function showImagesAsList() {
+  var imageList = document.getElementById('image-list');
+  imageList.innerHTML = '';
+  imageList.hidden = false;
+  imageList.textContent = 'CLICK ON THIS LIST TO HIDE IT';
+  for (var i = 0; i < Image.allImages.length; i++){
+    var liEl = document.createElement('li');
+    liEl.textContent = Image.allImages[i].name + ', ' + Image.allImages[i].clicked + ' votes';
+    imageList.appendChild(liEl);
+  };
+};
+
+function tallyVote(thisImage) {
+  for (var i = 0; i < Image.allImages.length; i++) {
+    if (thisImage === Image.allImages[i].identifier) {
+      Image.allImages[i].clicked++;
+      updateChartArrays();
+    }
+  }
+}
+
+// ++++++++++++++++++++++++++++++++++++++++++++
+// CHART STUFF
+// Charts rendered using Chart JS v.2.6.0
+// http://www.chartjs.org/
+// ++++++++++++++++++++++++++++++++++++++++++++
+
+var data = {
+  labels: names, // names array we declared earlier
+  datasets: [
+    {
+      data: clicks, // clicks array we declared earlier
+      backgroundColor: [
+        'bisque',
+        'darkgray',
+        'burlywood'
+      ],
+      hoverBackgroundColor: [
+        'white',
+        'white',
+        'white'
+      ]
+    }]
+};
+
+function drawChart() {
+  var ctx = document.getElementById('image-chart').getContext('2d');
+  imageChart = new Chart(ctx,{
+    type: 'bar',
+    data: data,
+    options: {
+      responsive: false,
+      animation: {
+        duration: 1000,
+        easing: 'easeOutBounce'
+      }
+    },
+    scales: {
+      yAxes: [{
+        ticks: {
+          max: 10,
+          min: 0,
+          stepSize: 1.0
+        }
+      }]
+    }
+  });
+  chartDrawn = true;
+}
+
+function hideChart() {
+  document.getElementById('image-chart').hidden = true;
+}
+
+// ++++++++++++++++++++++++++++++++++++++++++++
+// EVENT LISTENERS
+// ++++++++++++++++++++++++++++++++++++++++++++
+
+document.getElementById('draw-chart').addEventListener('click', function(){
+  drawChart();
+  // setTimeout(hideChart, 5000);
+});
+
+document.getElementById('list-button').addEventListener('click', function(){
+  showImagesAsList();
+});
+
+// document.getElementById('list-button').addEventListener('click', showImagesAsList);
+
+document.getElementById('image-list').addEventListener('click', function(){
+  document.getElementById('image-list').hidden = true;
+});
+
+document.getElementById('images').addEventListener('click', function(event){
+  if (event.target.id !== 'images') {
+    tallyVote(event.target.id);
+  };
+
+  if (chartDrawn) {
+    imageChart.update();
+  }
+});
