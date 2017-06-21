@@ -166,7 +166,7 @@ function showImagesAsList() {
 
 function tallyVote(thisImage) {
   for (var i = 0; i < Image.allImages.length; i++) {
-    if (thisImage === Image.allImages[i].identifier) {
+    if (thisImage === Image.allImages[i].name) {
       Image.allImages[i].clicked++;
       updateChartArrays();
     }
