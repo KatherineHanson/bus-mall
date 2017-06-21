@@ -29,6 +29,10 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <!-- Charts Rendered Using ChartJS -->
+    <!-- http://www.chartjs.org/ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
   </head>
 
   <body>
@@ -75,7 +79,13 @@
         <!-- <div class="col-md-4"> -->
         <section id="images"></section>
         <!-- </div> -->
+        <button id="draw-chart">Click here to see a chart!</button>
+        <button id="list-button">Or a lame old list</button>
       </div>
+
+      <ul id="image-list"></ul>
+
+      <canvas id="image-chart" width="800px" height="400px"></canvas>
 
       <hr>
 
