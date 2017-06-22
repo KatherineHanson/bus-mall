@@ -37,10 +37,29 @@ function makeImage(index) {
 
 // RENDER STARTER IMAGES
 Image.render = function() {
-  randomNumber();
-  Image.imagesCurrent.push(makeImage(randomNumber()));
-  Image.imagesCurrent.push(makeImage(randomNumber()));
-  Image.imagesCurrent.push(makeImage(randomNumber()));
+  var at = [];
+  at[0] = randomNumber();
+  at[1] = randomNumber();
+
+  while(at[0] === at[1]) {
+    console.error('Duplicate! Re-rolling!');
+    at[1] = randomNumber();
+  }
+
+  at[2] = randomNumber();
+  while(at[2] === at[0] || at[2] === at[1]) {
+    console.error('Duplicate! Re-rolling!');
+    at[2] = makeRandom();
+  }
+
+  makeImage(at[0]);
+  makeImage(at[1]);
+  makeImage(at[2]);
+
+  Image.imagesCurrent.push(Image.allImages[at[0]]);
+  Image.imagesCurrent.push(Image.allImages[at[1]]);
+  Image.imagesCurrent.push(Image.allImages[at[2]]);
+  console.log('First render\'s imagesCurrent IDs: ' + Image.imagesCurrent[0].id + ', ' + Image.imagesCurrent[1].id + ', ' + Image.imagesCurrent[2].id);
 };
 
 // EVENT LISTENER FOR HANDLING CLICKING OF IMAGES
@@ -69,7 +88,7 @@ function handleClick(event) {
     // console.log(Image.allImages[i]);
     if(event.target.id === Image.allImages[i].name) {
       Image.allImages[i].clicked += 1;
-      Image.allImages[i].converted = (Image.allImages[i].clicked / Image.allImages[i].shown).toFixed(4) * 100 + '%';
+      Image.allImages[i].converted = (Image.allImages[i].clicked / Image.allImages[i].shown).toFixed(4);
       console.log(event.target.id + ' has ' + Image.allImages[i].clicked + ' votes out of ' + Image.allImages[i].shown + ' views');
     }
   }
@@ -77,40 +96,48 @@ function handleClick(event) {
   // before replacing them with new images
   Image.imagesLast = Image.imagesCurrent;
   Image.imagesCurrent = [];
-  console.log('imagesLast is ' + Image.imagesLast);
+  console.log('imagesLast current IDs: ' + Image.imagesLast[0].id + ', ' + Image.imagesLast[1].id + ', ' + Image.imagesLast[2].id);
   // console.log('Most recently rendered images: ' + Image.imagesLast);
   var i = 0;
   Image.theImages.innerHTML = '';
 
-  while (i < 3) {
-    var b = randomNumber();
-    if (searchImagesLast(b) === true) {
-      if (searchImagesCurrent(b) === true) {
-        console.log('test');
-        makeImage(b);
-        Image.imagesCurrent.push(Image.allImages[b]);
-        Image.allImages[b].shown += 1;
-        i += 1;
-      }
-    }
-  }
+  validateNumbers();
+
   storeToLocalStorage();
 }
 
-function searchImagesLast(index) {
-  for(var c = 0; c < Image.allImages.length; c++) {
-    if(Image.allImages[index].name != Image.imagesLast.name) {
-      return true;
-    }
-  }
-}
+function validateNumbers () {
+  var at = [];
+  at[0] = randomNumber();
+  at[1] = randomNumber();
 
-function searchImagesCurrent(index) {
-  for(var d = 0; d < Image.allImages.length; d++) {
-    if(Image.allImages[index].name != Image.imagesCurrent.name) {
-      return true;
-    }
+  while (at[0] === Image.imagesLast[0].id || at[0] === Image.imagesLast[1].id || at[0] === Image.imagesLast[2].id) {
+    console.error('Duplicate! Re-rolling!');
+    at[0] = randomNumber();
   }
+
+  while(at[1] === at[0] || at[1] === Image.imagesLast[0].id || at[1] === Image.imagesLast[1].id || at[1] === Image.imagesLast[2].id) {
+    console.error('Duplicate! Re-rolling!');
+    at[1] = randomNumber();
+  }
+
+  at[2] = randomNumber();
+  while(at[2] === at[0] || at[2] === at[1] || at[2] === Image.imagesLast[0].id || at[2] === Image.imagesLast[1].id || at[2] === Image.imagesLast[2].id) {
+    console.error('Duplicate! Re-rolling!');
+    at[2] = randomNumber();
+  }
+  console.log('Selected random numbers: ' + at);
+
+  makeImage(at[0]);
+  makeImage(at[1]);
+  makeImage(at[2]);
+
+  Image.imagesCurrent.push(Image.allImages[at[0]]);
+  Image.imagesCurrent.push(Image.allImages[at[1]]);
+  Image.imagesCurrent.push(Image.allImages[at[2]]);
+
+  console.log('Final imagesLast IDs per cycle: ' + Image.imagesLast[0].id + ', ' + Image.imagesLast[1].id + ', ' + Image.imagesLast[2].id);
+  console.log('Final imagesCurrent IDs per cycle: ' + Image.imagesCurrent[0].id + ', ' + Image.imagesCurrent[1].id + ', ' + Image.imagesCurrent[2].id);
 }
 
 // store data in localStorage every time the data changes
@@ -126,26 +153,26 @@ function retrieveLocalStorage() {
     Image.allImages = JSON.parse(localStorage.getItem('images'));
   } else {
     // make instances from constructor, display images
-    new Image('bag', '.jpg', 1);
-    new Image('banana', '.jpg', 2);
-    new Image('bathroom', '.jpg', 3);
-    new Image('boots', '.jpg', 4);
-    new Image('breakfast', '.jpg', 5);
-    new Image('bubblegum', '.jpg', 6);
-    new Image('chair', '.jpg', 7);
-    new Image('cthulhu', '.jpg', 8);
-    new Image('dog-duck', '.jpg', 9);
-    new Image('dragon', '.jpg', 10);
-    new Image('pen', '.jpg', 11);
-    new Image('pet-sweep', '.jpg', 12);
-    new Image('scissors', '.jpg', 13);
-    new Image('shark', '.jpg', 14);
-    new Image('sweep', '.png', 15);
-    new Image('tauntaun', '.jpg', 16);
-    new Image('unicorn', '.jpg', 17);
-    new Image('usb', '.gif', 18);
-    new Image('water-can', '.jpg', 19);
-    new Image('wine-glass', '.jpg', 20);
+    new Image('bag', '.jpg', 0);
+    new Image('banana', '.jpg', 1);
+    new Image('bathroom', '.jpg', 2);
+    new Image('boots', '.jpg', 3);
+    new Image('breakfast', '.jpg', 4);
+    new Image('bubblegum', '.jpg', 5);
+    new Image('chair', '.jpg', 6);
+    new Image('cthulhu', '.jpg', 7);
+    new Image('dog-duck', '.jpg', 8);
+    new Image('dragon', '.jpg', 9);
+    new Image('pen', '.jpg', 10);
+    new Image('pet-sweep', '.jpg', 11);
+    new Image('scissors', '.jpg', 12);
+    new Image('shark', '.jpg', 13);
+    new Image('sweep', '.png', 14);
+    new Image('tauntaun', '.jpg', 15);
+    new Image('unicorn', '.jpg', 16);
+    new Image('usb', '.gif', 17);
+    new Image('water-can', '.jpg', 18);
+    new Image('wine-glass', '.jpg', 19);
   }
 }
 
