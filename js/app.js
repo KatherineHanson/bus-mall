@@ -10,22 +10,21 @@ Image.imagesCurrent = [];
 retrieveLocalStorage();
 
 // CONSTRUCTOR FOR IMAGES
-function Image(name, format, id, identifier) {
+function Image(name, format, id) {
   this.name = name;
   this.format = format;
   this.filepath = 'img/' + name + format;
   this.id = id;
   this.shown = 0;
   this.clicked = 0;
-  this.identifier = identifier;
+  this.converted = 0;
   Image.allImages.push(this);
 };
 
 // GENERATE RANDOM WHOLE NUMBER FROM 0 to 19
 function randomNumber() {
   return Math.floor(Math.random() * (19 - 0) + 0);
-};
-
+}
 
 function makeImage(index) {
   var imgEl = document.createElement('img');
@@ -70,6 +69,7 @@ function handleClick(event) {
     // console.log(Image.allImages[i]);
     if(event.target.id === Image.allImages[i].name) {
       Image.allImages[i].clicked += 1;
+      Image.allImages[i].converted = (Image.allImages[i].clicked / Image.allImages[i].shown).toFixed(4) * 100 + '%';
       console.log(event.target.id + ' has ' + Image.allImages[i].clicked + ' votes out of ' + Image.allImages[i].shown + ' views');
     }
   }
