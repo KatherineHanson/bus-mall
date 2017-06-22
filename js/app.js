@@ -1,12 +1,13 @@
 'use strict';
 
-// GLOBAL VARIABLES
+// IMAGE VARIABLES
 // For creating images
 Image.theImages = document.getElementById('images');
 Image.clickCounter = 0;
 Image.allImages = [];
 Image.imagesLast = [];
 Image.imagesCurrent = [];
+retrieveLocalStorage();
 
 // CONSTRUCTOR FOR IMAGES
 function Image(name, format, id, identifier) {
@@ -25,27 +26,6 @@ function randomNumber() {
   return Math.floor(Math.random() * (19 - 0) + 0);
 };
 
-// INSTANTIATE IMAGE OBJECTS
-new Image('bag', '.jpg', 1);
-new Image('banana', '.jpg', 2);
-new Image('bathroom', '.jpg', 3);
-new Image('boots', '.jpg', 4);
-new Image('breakfast', '.jpg', 5);
-new Image('bubblegum', '.jpg', 6);
-new Image('chair', '.jpg', 7);
-new Image('cthulhu', '.jpg', 8);
-new Image('dog-duck', '.jpg', 9);
-new Image('dragon', '.jpg', 10);
-new Image('pen', '.jpg', 11);
-new Image('pet-sweep', '.jpg', 12);
-new Image('scissors', '.jpg', 13);
-new Image('shark', '.jpg', 14);
-new Image('sweep', '.png', 15);
-new Image('tauntaun', '.jpg', 16);
-new Image('unicorn', '.jpg', 17);
-new Image('usb', '.gif', 18);
-new Image('water-can', '.jpg', 19);
-new Image('wine-glass', '.jpg', 20);
 
 function makeImage(index) {
   var imgEl = document.createElement('img');
@@ -113,7 +93,8 @@ function handleClick(event) {
       }
     }
   }
-};
+  storeToLocalStorage();
+}
 
 function searchImagesLast(index) {
   for(var c = 0; c < Image.allImages.length; c++) {
@@ -128,6 +109,42 @@ function searchImagesCurrent(index) {
     if(Image.allImages[index].name != Image.imagesCurrent.name) {
       return true;
     }
+  }
+}
+
+// store data in localStorage every time the data changes
+function storeToLocalStorage() {
+  localStorage.setItem('images', JSON.stringify(Image.allImages));
+}
+
+// retrieve stored data on page load
+function retrieveLocalStorage() {
+  // if localStorage exists
+  if (localStorage.length > 0) {
+    // retrieve, parse, assign to array of objects
+    Image.allImages = JSON.parse(localStorage.getItem('images'));
+  } else {
+    // make instances from constructor, display images
+    new Image('bag', '.jpg', 1);
+    new Image('banana', '.jpg', 2);
+    new Image('bathroom', '.jpg', 3);
+    new Image('boots', '.jpg', 4);
+    new Image('breakfast', '.jpg', 5);
+    new Image('bubblegum', '.jpg', 6);
+    new Image('chair', '.jpg', 7);
+    new Image('cthulhu', '.jpg', 8);
+    new Image('dog-duck', '.jpg', 9);
+    new Image('dragon', '.jpg', 10);
+    new Image('pen', '.jpg', 11);
+    new Image('pet-sweep', '.jpg', 12);
+    new Image('scissors', '.jpg', 13);
+    new Image('shark', '.jpg', 14);
+    new Image('sweep', '.png', 15);
+    new Image('tauntaun', '.jpg', 16);
+    new Image('unicorn', '.jpg', 17);
+    new Image('usb', '.gif', 18);
+    new Image('water-can', '.jpg', 19);
+    new Image('wine-glass', '.jpg', 20);
   }
 }
 
