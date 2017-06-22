@@ -38,9 +38,9 @@ function makeImage(index) {
 // RENDER STARTER IMAGES
 Image.render = function() {
   randomNumber();
-  makeImage(randomNumber());
-  makeImage(randomNumber());
-  makeImage(randomNumber());
+  Image.imagesCurrent.push(makeImage(randomNumber()));
+  Image.imagesCurrent.push(makeImage(randomNumber()));
+  Image.imagesCurrent.push(makeImage(randomNumber()));
 };
 
 // EVENT LISTENER FOR HANDLING CLICKING OF IMAGES
@@ -81,6 +81,7 @@ function handleClick(event) {
   // console.log('Most recently rendered images: ' + Image.imagesLast);
   var i = 0;
   Image.theImages.innerHTML = '';
+
   while (i < 3) {
     var b = randomNumber();
     if (searchImagesLast(b) === true) {
@@ -184,7 +185,7 @@ function showImagesAsList() {
 function tallyVote(thisImage) {
   for (var i = 0; i < Image.allImages.length; i++) {
     if (thisImage === Image.allImages[i].name) {
-      Image.allImages[i].clicked++;
+      // Image.allImages[i].clicked++;
       updateChartArrays();
     }
   }
