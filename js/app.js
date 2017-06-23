@@ -42,13 +42,13 @@ Image.render = function() {
   at[1] = randomNumber();
 
   while(at[0] === at[1]) {
-    console.error('Duplicate! Re-rolling!');
+    console.error('Duplicate! Trying again!');
     at[1] = randomNumber();
   }
 
   at[2] = randomNumber();
   while(at[2] === at[0] || at[2] === at[1]) {
-    console.error('Duplicate! Re-rolling!');
+    console.error('Duplicate! Trying again!');
     at[2] = makeRandom();
   }
 
@@ -88,7 +88,7 @@ function handleClick(event) {
     // console.log(Image.allImages[i]);
     if(event.target.id === Image.allImages[i].name) {
       Image.allImages[i].clicked += 1;
-      Image.allImages[i].converted = (Image.allImages[i].clicked / Image.allImages[i].shown).toFixed(4);
+      Image.allImages[i].converted = Image.allImages[i].clicked / Image.allImages[i].shown;
       console.log(event.target.id + ' has ' + Image.allImages[i].clicked + ' votes out of ' + Image.allImages[i].shown + ' views');
     }
   }
@@ -112,18 +112,18 @@ function validateNumbers () {
   at[1] = randomNumber();
 
   while (at[0] === Image.imagesLast[0].id || at[0] === Image.imagesLast[1].id || at[0] === Image.imagesLast[2].id) {
-    console.error('Duplicate! Re-rolling!');
+    console.error('Duplicate! Trying again!');
     at[0] = randomNumber();
   }
 
   while(at[1] === at[0] || at[1] === Image.imagesLast[0].id || at[1] === Image.imagesLast[1].id || at[1] === Image.imagesLast[2].id) {
-    console.error('Duplicate! Re-rolling!');
+    console.error('Duplicate! Trying again!');
     at[1] = randomNumber();
   }
 
   at[2] = randomNumber();
   while(at[2] === at[0] || at[2] === at[1] || at[2] === Image.imagesLast[0].id || at[2] === Image.imagesLast[1].id || at[2] === Image.imagesLast[2].id) {
-    console.error('Duplicate! Re-rolling!');
+    console.error('Duplicate! Trying again!');
     at[2] = randomNumber();
   }
   console.log('Selected random numbers: ' + at);
