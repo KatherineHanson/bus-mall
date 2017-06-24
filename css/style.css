@@ -6,6 +6,7 @@ body {
 
 section img {
   width: 30%;
+  margin-left: 10px;
 }
 
 #draw-chart, #list-button {
