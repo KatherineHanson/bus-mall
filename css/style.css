@@ -24,3 +24,8 @@ section img {
   vertical-align: middle;
   border: 1px solid transparent;
 }
+
+li {
+  font-size: 18px;
+  font-weight: 200;
+}

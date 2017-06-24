@@ -62,9 +62,6 @@ Image.render = function() {
   console.log('First render\'s imagesCurrent IDs: ' + Image.imagesCurrent[0].id + ', ' + Image.imagesCurrent[1].id + ', ' + Image.imagesCurrent[2].id);
 };
 
-// EVENT LISTENER FOR HANDLING CLICKING OF IMAGES
-Image.theImages.addEventListener('click', handleClickWithLimiter);
-
 // LIMITER ON AMOUNT OF TIMES handleClick CAN BE return
 function handleClickWithLimiter(event) {
 //   // on click, add 1 to click counter
@@ -319,27 +316,33 @@ function hideChart() {
 // EVENT LISTENERS
 // ++++++++++++++++++++++++++++++++++++++++++++
 
-document.getElementById('draw-chart').addEventListener('click', function(){
-  drawChart();
-  // setTimeout(hideChart, 5000);
-});
+function init() {
+  Image.theImages.addEventListener('click', handleClickWithLimiter);
 
-document.getElementById('list-button').addEventListener('click', function(){
-  showImagesAsList();
-});
+  document.getElementById('draw-chart').addEventListener('click', function(){
+    drawChart();
+    // setTimeout(hideChart, 5000);
+  });
 
-// document.getElementById('list-button').addEventListener('click', showImagesAsList);
+  document.getElementById('list-button').addEventListener('click', function(){
+    showImagesAsList();
+  });
 
-document.getElementById('image-list').addEventListener('click', function(){
-  document.getElementById('image-list').hidden = true;
-});
+  // document.getElementById('list-button').addEventListener('click', showImagesAsList);
 
-document.getElementById('images').addEventListener('click', function(event){
-  if (event.target.id !== 'images') {
-    tallyVote(event.target.id);
-  };
+  document.getElementById('image-list').addEventListener('click', function(){
+    document.getElementById('image-list').hidden = true;
+  });
 
-  if (chartDrawn) {
-    imageChart.update();
-  }
-});
+  document.getElementById('images').addEventListener('click', function(event){
+    if (event.target.id !== 'images') {
+      tallyVote(event.target.id);
+    };
+
+    if (chartDrawn) {
+      imageChart.update();
+    }
+  });
+}
+
+init();
